@@ -1,0 +1,41 @@
+# Senator Configuration
+# Copy to ~/.senator.yaml or use --config flag
+
+# OpenRouter API configuration (or Ollama / any OpenAI-compatible API)
+openrouter:
+  api_key: "" # Or set SENATOR_OPENROUTER_API_KEY env var (optional for Ollama)
+  model: "qwen3-coder:480b-cloud"
+  # base_url: "http://localhost:11434/v1"  # Uncomment for Ollama
+  base_url: "http://localhost:11434/v1" # Empty = OpenRouter, or "http://localhost:11434/v1" for Ollama
+
+# Model presets for the Senate
+models:
+  chairman:
+    model: "openai/gpt-oss-120b:free"
+    # model: "anthropic/claude-3.5-sonnet"
+  critics:
+    - name: "Security"
+      role: "security"
+      model: "openai/gpt-oss-120b:free"
+      # model: "google/gemini-2.0-flash-thinking-exp:free"
+    - name: "Logic"
+      role: "logic"
+      model: "openai/gpt-oss-120b:free"
+      # model: "deepseek/deepseek-r1:free"
+    - name: "Style"
+      role: "style"
+      model: "openai/gpt-oss-120b:free"
+      # model: "meta-llama/llama-3.1-8b-instruct:free"
+
+# MCP server configurations
+mcp:
+  servers:
+    github:
+      command: "npx"
+      args: ["-y", "@modelcontextprotocol/server-github"]
+    filesystem:
+      command: "npx"
+      args: ["-y", "@modelcontextprotocol/server-filesystem", "."]
+    docker:
+      command: "docker"
+      args: ["run", "-i", "--rm", "mcp/docker"]
